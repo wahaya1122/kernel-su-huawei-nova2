@@ -37,11 +37,13 @@ jobs:
         #echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/vendor/cas_defconfig
         #echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/vendor/cas_defconfig
 
-        git clone https://github.com/SukiSU-Ultra/SukiSu-Ultra
-        cd SukiSu-Ultra
-        git stash && git pull
-        cd ../
-        cp -r SukiSu-Ultra/kernel drivers/kernelsu
+        # git clone https://github.com/SukiSU-Ultra/SukiSu-Ultra
+        # cd SukiSu-Ultra
+        # git stash && git pull
+        # cd ../
+        # cp -r SukiSu-Ultra/kernel drivers/kernelsu
+
+        curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 
         echo "[+] Add kernel su driver to Makefile"
 
