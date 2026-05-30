@@ -45,13 +45,13 @@ jobs:
 
         curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s builtin
 
-        echo "[+] Add kernel su driver to Makefile"
+        # echo "[+] Add kernel su driver to Makefile"
 
         #echo "obj-y += kernelsu/" >> drivers/Makefile
         
-        echo "ccflags-y += -std=gnu11" >> drivers/kernelsu/Makefile
+        # echo "ccflags-y += -std=gnu11" >> drivers/kernelsu/Makefile
 
-        echo "[+] Done."
+        # echo "[+] Done."
         
         cd ..
         
