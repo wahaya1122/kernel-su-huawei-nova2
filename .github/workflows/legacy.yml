@@ -52,10 +52,10 @@ jobs:
         # echo "ccflags-y += -std=gnu11" >> drivers/kernelsu/Makefile
 
         # echo "[+] Done."
-        
-        cd ..
 
         echo "CONFIG_KSU=y" >> arch/arm64/configs/merge_hi6250_defconfig
+        
+        cd ..
         
         git clone https://github.com/CoolestEnoch/kernel-su-xiaomi-cas
         
