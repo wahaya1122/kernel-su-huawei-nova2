@@ -2,7 +2,6 @@ name: (GCC)Kernel Builder Huawei nova2
 
 on:
   workflow_dispatch:
-  push:
   schedule:
     - cron: 0 0 * * 1
 
@@ -13,7 +12,7 @@ jobs:
     - name: Checkout kernel source
       uses: actions/checkout@v2
       with:
-        repository: CoolestEnoch/kernel-su-huawei-nova2
+        repository: wahaya1122/kernel-su-huawei-nova2
         path: thisRepo
     - name: Integrate KernelSU
       run: |
