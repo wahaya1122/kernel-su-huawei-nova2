@@ -39,7 +39,7 @@ jobs:
         cd SukiSu-Ultra
         git stash && git pull
         cd ../
-        cp -r SukiSU-Ultra/kernel drivers/kernelsu
+        cp -r SukiSu-Ultra/kernel drivers/kernelsu
 
         echo "[+] Add kernel su driver to Makefile"
 
