@@ -57,7 +57,7 @@ jobs:
         defconfig: merge_hi6250_defconfig
         image: Image.gz
     - name: Upload Build
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Image
         path: /home/runner/work/kernel-su-huawei-nova2/kernel-su-huawei-nova2/zipper
