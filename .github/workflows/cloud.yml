@@ -36,7 +36,7 @@ jobs:
         # echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/vendor/bengal-perf_defconfig
 
         git clone https://github.com/SukiSU-Ultra/SukiSu-Ultra
-        cd SukiSU-Ultra
+        cd SukiSu-Ultra
         git stash && git pull
         cd ../
         cp -r SukiSU-Ultra/kernel drivers/kernelsu
