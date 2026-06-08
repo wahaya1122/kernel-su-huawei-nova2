@@ -241,4 +241,6 @@ source "drivers/cfi/Kconfig"
 
 source "drivers/kernelsu/Kconfig"
 
+source "drivers/rwProcMem33/Kconfig"
+
 endmenu

@@ -70,15 +70,18 @@ jobs:
         cd source
         make merge_hi6250_defconfig
         make -j2
-        
+        make -j2 modules
+
         cd arch/arm64/boot
         mv Image kernel-Image
         gzip kernel-Image
-        
+
         wget https://github.com/CoolestEnoch/kernel-su-huawei-nova2/releases/download/20230216-ksu16/nova2-ksu.zip
         unzip nova2-ksu.zip -d ./anykernel
         rm anykernel/kernel-Image.gz
         cp ./kernel-Image.gz anykernel/kernel-Image.gz
+        mkdir -p anykernel/modules
+        cp ../drivers/rwProcMem33/rwProcMem_module.ko anykernel/modules/ 2>/dev/null || true
         cd anykernel
         zip nova2ksu.zip ./*
         

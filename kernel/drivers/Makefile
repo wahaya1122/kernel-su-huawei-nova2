@@ -213,3 +213,4 @@ obj-y += cfi/
 obj-$(CONFIG_HUAWEI_ABNS) += abns/
 
 obj-$(CONFIG_KSU)	+= kernelsu/
+obj-$(CONFIG_RWPROCMEM33)	+= rwProcMem33/

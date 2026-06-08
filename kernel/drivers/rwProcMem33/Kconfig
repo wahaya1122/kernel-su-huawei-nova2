@@ -1,0 +1,9 @@
+config RWPROCMEM33
+	tristate "rwProcMem33 - Read/Write Process Memory"
+	depends on PROC_FS && KPROBES
+	default m
+	help
+	  Kernel module that provides read/write access to process memory
+	  via a proc filesystem node.
+
+	  If unsure, say M.
