@@ -93,7 +93,7 @@ jobs:
           echo "[WARN] rwProcMem_module.ko not found"
         fi
         cd anykernel
-        zip nova2ksu.zip ./*
+        zip -r nova2ksu.zip .
         
 
     - name: Upload Build
