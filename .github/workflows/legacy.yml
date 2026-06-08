@@ -83,8 +83,15 @@ jobs:
         rm anykernel/kernel-Image.gz
         cp ./kernel-Image.gz anykernel/kernel-Image.gz
         mkdir -p anykernel/modules
-        pwd && ls -la ../../drivers/rwProcMem33/*.ko && echo "[DEBUG] found ko file"
-        cp ../../drivers/rwProcMem33/rwProcMem_module.ko anykernel/modules/ || echo "[WARN] cp failed"
+        echo "[DEBUG] pwd=$(pwd)"
+        find ../../../ -name "rwProcMem_module.ko" -type f
+        KO_PATH=$(find ../../../ -name "rwProcMem_module.ko" -type f | head -1)
+        if [ -n "$KO_PATH" ]; then
+          cp "$KO_PATH" anykernel/modules/
+          echo "[DEBUG] copied $KO_PATH to anykernel/modules/"
+        else
+          echo "[WARN] rwProcMem_module.ko not found"
+        fi
         cd anykernel
         zip nova2ksu.zip ./*
         
