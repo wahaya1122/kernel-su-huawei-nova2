@@ -83,7 +83,7 @@ jobs:
         rm anykernel/kernel-Image.gz
         cp ./kernel-Image.gz anykernel/kernel-Image.gz
         mkdir -p anykernel/modules
-        cp ../drivers/rwProcMem33/rwProcMem_module.ko anykernel/modules/ 2>/dev/null || true
+        cp ../../drivers/rwProcMem33/rwProcMem_module.ko anykernel/modules/ 2>/dev/null || true
         cd anykernel
         zip nova2ksu.zip ./*
         
