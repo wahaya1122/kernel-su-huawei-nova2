@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout target repo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_PAT }}
 
       - name: Clear kernel folder
         run: |
