@@ -68,9 +68,9 @@ jobs:
         cd source
         sudo mkdir -p /tools
         sudo ln -sf /usr/bin/dtc /tools/dtc
-
+        
         make merge_hi6250_defconfig
-        make -j2
+        make -j2 HOSTCFLAGS="-fcommon"
         make -j2 modules
 
         cd arch/arm64/boot
