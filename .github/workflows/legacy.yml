@@ -1,11 +1,7 @@
 name: (GCC)Kernel Builder Huawei nova2
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
-  schedule:
-    - cron: 0 0 * * 1
 
 jobs:
   build:
