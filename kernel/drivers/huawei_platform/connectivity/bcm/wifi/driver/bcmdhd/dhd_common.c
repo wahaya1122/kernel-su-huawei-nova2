@@ -111,12 +111,10 @@ extern int dhd_get_concurrent_capabilites(dhd_pub_t *dhd);
 #endif
 extern int dhd_socram_dump(struct dhd_bus *bus);
 #ifdef BCM_PATCH_CVE_2016_0801
-#ifdef DNGL_EVENT_SUPPORT
 static void dngl_host_event_process(dhd_pub_t *dhdp, bcm_dngl_event_t *event,
 	bcm_dngl_event_msg_t *dngl_event, size_t pktlen);
 static int dngl_host_event(dhd_pub_t *dhdp, void *pktdata, bcm_dngl_event_msg_t *dngl_event,
 	size_t pktlen);
-#endif /* DNGL_EVENT_SUPPORT */
 #else
 static void dngl_host_event_process(dhd_pub_t *dhdp, bcm_dngl_event_t *event);
 static int dngl_host_event(dhd_pub_t *dhdp, void *pktdata);
@@ -133,12 +131,8 @@ bool ap_fw_loaded = FALSE;
 #endif /* DHD_DEBUG */
 
 #if defined(DHD_DEBUG)
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0))
-const char dhd_version[] = "Dongle Host Driver, version " EPI_VERSION_STR;
-#else
 const char dhd_version[] = "Dongle Host Driver, version " EPI_VERSION_STR
 	DHD_COMPILED " on " __DATE__ " at " __TIME__;
-#endif
 #else
 const char dhd_version[] = "\nDongle Host Driver, version " EPI_VERSION_STR "\nCompiled from ";
 #endif
@@ -427,11 +421,8 @@ dhd_wl_ioctl(dhd_pub_t *dhd_pub, int ifidx, wl_ioctl_t *ioc, void *buf, int len)
 		dhd_pub->dhd_bus_busy_state |= DHD_BUS_BUSY_IN_IOVAR;
 		if (dhd_os_devwake_check_deepsleep(dhd_pub)) {
 			DHD_GENERAL_UNLOCK(dhd_pub, flags);
-			if (!dhd_os_devwake_wait(dhd_pub, &(dhd_pub->deepsleep))) {
-				/* We have to restart netif queue here */
-				dhd_bus_start_queue(dhd_pub->bus);
+			if (!dhd_os_devwake_wait(dhd_pub, &(dhd_pub->deepsleep)))
 				DHD_ERROR(("%s: dev wake timeout\n", __FUNCTION__));
-			}
 		} else
 #endif /* DHD_DEVWAKE_EARLY */
 		DHD_GENERAL_UNLOCK(dhd_pub, flags);
@@ -1614,7 +1605,6 @@ wl_show_host_event(dhd_pub_t *dhd_pub, wl_event_msg_t *event, void *event_data,
 
 /* Check whether packet is a BRCM dngl event pkt. If it is, process event data. */
 #ifdef BCM_PATCH_CVE_2016_0801
-#ifdef DNGL_EVENT_SUPPORT
 int
 dngl_host_event(dhd_pub_t *dhdp, void *pktdata, bcm_dngl_event_msg_t *dngl_event, size_t pktlen)
 {
@@ -1623,7 +1613,6 @@ dngl_host_event(dhd_pub_t *dhdp, void *pktdata, bcm_dngl_event_msg_t *dngl_event
 	dngl_host_event_process(dhdp, pvt_data, dngl_event, pktlen);
 	return BCME_OK;
 }
-#endif
 #else
 int
 dngl_host_event(dhd_pub_t *dhdp, void *pktdata)
@@ -1760,9 +1749,6 @@ dngl_host_event_process(dhd_pub_t *dhdp, bcm_dngl_event_t *event)
 	break;
 	}
 }
-#ifdef HW_READ_FW_LOG
-extern void dhd_read_console_ex(dhd_pub_t *dhd);
-#endif
 #ifdef BCM_PATCH_CVE_2016_0801
 /* Check whether packet is a BRCM event pkt. If it is, record event data. */
 int wl_host_event_get_data(void *pktdata, uint pktlen, bcm_event_msg_u_t *evu)
@@ -1898,14 +1884,6 @@ int wl_host_event(dhd_pub_t *dhd_pub, int *ifidx, void *pktdata,
 	hostidx = dhd_ifidx2hostidx(dhd_pub->info, event->ifidx);
 
 	switch (type) {
-#ifdef HW_WATCHDOG_MS
-	case WLC_E_EXTLOG_MSG:
-		DHD_ERROR(("%s: firmware log report event\n", __FUNCTION__));
-#ifdef HW_READ_FW_LOG
-		dhd_read_console_ex(dhd_pub);
-#endif
-		break;
-#endif
 #ifdef PROP_TXSTATUS
 	case WLC_E_FIFO_CREDIT_MAP:
 		dhd_wlfc_enable(dhd_pub);

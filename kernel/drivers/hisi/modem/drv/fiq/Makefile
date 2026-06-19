@@ -9,5 +9,5 @@ obj-y			+= fiq_smp.o
 else
 obj-y			+= fiq.o
 endif
-subdir-ccflags-y :=
+subdir-ccflags-y := -Werror
 

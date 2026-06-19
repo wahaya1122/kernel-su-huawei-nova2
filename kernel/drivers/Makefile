@@ -211,6 +211,3 @@ obj-$(CONFIG_HW_MEMORY_MONITOR) += mmonitor/
 obj-$(CONFIG_HW_MEMORY_MONITOR) += allocpages_delayacct/
 obj-y += cfi/
 obj-$(CONFIG_HUAWEI_ABNS) += abns/
-
-obj-$(CONFIG_KSU)	+= kernelsu/
-obj-$(CONFIG_RWPROCMEM33)	+= rwProcMem33/

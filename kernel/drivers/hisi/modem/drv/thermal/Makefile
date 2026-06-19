@@ -7,5 +7,5 @@ endif
 
 obj-y			+= thermal.o
 
-subdir-ccflags-y :=
+subdir-ccflags-y := -Werror
 

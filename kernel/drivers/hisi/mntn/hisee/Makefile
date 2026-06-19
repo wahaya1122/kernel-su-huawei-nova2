@@ -1,4 +1,4 @@
-ccflags-y += -Wall
+ccflags-y += -Wall -Werror
 
 ifeq ($(TARGET_VERSION_MODE),factory)
 ccflags-y += -DFACTORY_TEST_HISEE

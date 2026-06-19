@@ -1,4 +1,21 @@
+/******************************************************************************
 
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+ ******************************************************************************
+  文 件 名   : oal_pci.c
+  版 本 号   : 初稿
+  作    者   : zhangheng
+  生成日期   : 2013年2月18日
+  最近修改   :
+  功能描述   : PCIe驱动
+  函数列表   :
+  修改历史   :
+  1.日    期   : 2013年2月18日
+    作    者   : zhangheng
+    修改内容   : 创建文件
+
+******************************************************************************/
 
 #ifdef __cplusplus
 #if __cplusplus
@@ -131,7 +148,24 @@ OAL_STATIC oal_int32 oal_pci_resume(oal_pci_dev_stru *pst_pci_dev)
 /*****************************************************************************
   3 函数实现
 *****************************************************************************/
+/*****************************************************************************
+ 函 数 名  : oal_pcie_set_inbound_iatu
+ 功能描述  : 设置EP端iATU表,设置2个映射表。
+             256KB的BAR0空间:
+             iATU0: 240K,为soc+phy+mac的寄存器地址
+             iATU1: pcie internal寄存器地址
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年6月14日
+    作    者   : mayuan
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void oal_pcie_set_inbound_iatu(oal_pci_dev_stru *pst_pci_dev)
 {
     /* iATU0:BAR0:SoC MAC PHY: 240KB */
@@ -160,7 +194,21 @@ oal_void oal_pcie_set_inbound_iatu(oal_pci_dev_stru *pst_pci_dev)
     oal_pci_write_config_word(pst_pci_dev, 0x04, 0x7);
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pcie_set_inbound_iatu_slip_window
+ 功能描述  : 设置滑窗后的EP端iATU表
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年2月28日
+    作    者   : mayuan
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 
 oal_void oal_pcie_set_inbound_iatu_slip_window(oal_pci_dev_stru *pst_pci_dev)
 {
@@ -181,7 +229,21 @@ oal_void oal_pcie_set_inbound_iatu_slip_window(oal_pci_dev_stru *pst_pci_dev)
 }
 
 
+/*****************************************************************************
+ 函 数 名  : oal_pcie_set_outbound_iatu
+ 功能描述  :
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年7月10日
+    作    者   : mayuan
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void  oal_pcie_set_outbound_iatu(oal_pci_dev_stru *pst_pci_dev)
 {
     /* iATU1:512M */
@@ -200,7 +262,21 @@ oal_void  oal_pcie_set_outbound_iatu(oal_pci_dev_stru *pst_pci_dev)
 }
 
 #ifdef _PRE_DEBUG_MODE
+/*****************************************************************************
+ 函 数 名  : oal_pci_debug_info
+ 功能描述  : 打印PCIe调试信息
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年6月21日
+    作    者   : mayuan
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_void  oal_pci_debug_info(oal_pci_dev_stru *pst_pci_dev)
 {
     oal_pci_bar_idx_enum_uint8   en_index;
@@ -217,7 +293,22 @@ OAL_STATIC oal_void  oal_pci_debug_info(oal_pci_dev_stru *pst_pci_dev)
 }
 #endif
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_witp_init
+ 功能描述  : WITP 1151 PCI探测初始化函数
+ 输入参数  : pst_pci_dev: 指向PCI设备
+             ul_dev_id     : PCI设备号
+ 输出参数  : 无
+ 返 回 值  : Linux错误码
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年2月18日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_int32 oal_pci_witp_init(oal_pci_dev_stru *pst_pci_dev, oal_uint32 ul_dev_id)
 {
     oal_uint8                    uc_index;
@@ -346,7 +437,22 @@ OAL_STATIC oal_int32 oal_pci_witp_init(oal_pci_dev_stru *pst_pci_dev, oal_uint32
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_probe
+ 功能描述  : PCI探测函数
+ 输入参数  : pst_pci_dev: 指向PCI设备
+             pst_id     : PCI设备表
+ 输出参数  : 无
+ 返 回 值  : Linux错误码
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年2月18日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_int32  oal_pci_probe(oal_pci_dev_stru *pst_pci_dev, OAL_CONST oal_pci_device_id_stru *pst_id)
 {
     oal_uint32                   ul_dev_id;
@@ -402,7 +508,22 @@ OAL_STATIC oal_int32  oal_pci_probe(oal_pci_dev_stru *pst_pci_dev, OAL_CONST oal
 }
 
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_witp_remove
+ 功能描述  : WITP PCI探测函数
+ 输入参数  : pst_pci_dev: 指向PCI设备
+             pst_id     : PCI设备表
+ 输出参数  : 无
+ 返 回 值  : Linux错误码
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年2月18日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_void oal_pci_witp_remove(oal_pci_dev_stru *pst_pci_dev)
 {
     oal_uint8            uc_index;
@@ -436,7 +557,21 @@ OAL_STATIC oal_void oal_pci_witp_remove(oal_pci_dev_stru *pst_pci_dev)
     return;
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_remove
+ 功能描述  : pci设备移除函数
+ 输入参数  : pst_pci_dev: pci设备
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年2月22日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_void  oal_pci_remove(oal_pci_dev_stru *pst_pci_dev)
 {
     oal_uint32                    ul_dev_id;
@@ -457,7 +592,21 @@ OAL_STATIC oal_void  oal_pci_remove(oal_pci_dev_stru *pst_pci_dev)
     OAL_IO_PRINT("PCI driver: remove driver.\n");
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_init
+ 功能描述  : pci初始化
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年2月18日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  oal_pci_init(oal_void)
 {
 #if (_PRE_OS_VERSION_WIN32 == _PRE_OS_VERSION) && (_PRE_TEST_MODE == _PRE_TEST_MODE_UT)
@@ -484,7 +633,21 @@ oal_uint32  oal_pci_init(oal_void)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_exit
+ 功能描述  : pci驱动退出
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2013年2月18日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void  oal_pci_exit(oal_void)
 {
     oal_pci_unregister_driver(&g_st_pci_drv);
@@ -492,7 +655,21 @@ oal_void  oal_pci_exit(oal_void)
     OAL_IO_PRINT("PCI driver: driver unloaded.\n");
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_5115_pci_init
+ 功能描述  : 5115 system control & PCIE0 基地址映射
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  : OAL_SUCC或其它错误码
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : mayuan
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  oal_5115_pci_init(oal_void)
 {
     g_pst_5115_sys_ctl = oal_ioremap_nocache(OAL_PCIE_SYS_BASE_PHYS, 0x1000);
@@ -551,7 +728,21 @@ oal_uint32  oal_5115_pci_init(oal_void)
 }
 
 
+/*****************************************************************************
+ 函 数 名  : oal_5115_pci_exit
+ 功能描述  :
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : mayuan
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void  oal_5115_pci_exit(oal_void)
 {
     if (g_pst_5115_sys_ctl)
@@ -582,7 +773,21 @@ oal_void  oal_5115_pci_exit(oal_void)
 #endif
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pcie_dbi_enable
+ 功能描述  : 使能RC侧的DBI读写功能
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : 邹嵘
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void oal_pcie_dbi_enable(oal_uint32 id)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -610,7 +815,21 @@ oal_void oal_pcie_dbi_enable(oal_uint32 id)
     }
 #endif
 }
+/*****************************************************************************
+ 函 数 名  : oal_pcie_dbi_disable
+ 功能描述  : 去使能RC侧的DBI读写功能，恢复EP侧的DBI读写
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : 邹嵘
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void oal_pcie_dbi_disable(oal_uint32 id)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -639,7 +858,21 @@ oal_void oal_pcie_dbi_disable(oal_uint32 id)
       }
 #endif
 }
+/*****************************************************************************
+ 函 数 名  : oal_pcie_internal_get
+ 功能描述  : 1151 PCIE内部寄存器MEM读接口，调用接口前，需确保已调用hi1151_pcie_dbi_enable接口使能1151的DBI接口。
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : 邹嵘
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 oal_pcie_internal_get(oal_uint32 ul_inter_addr, oal_uint32 bit_offset, oal_uint32 bit_width)
 {
     oal_uint32                  ul_value = 0;
@@ -664,7 +897,21 @@ oal_uint32 oal_pcie_internal_get(oal_uint32 ul_inter_addr, oal_uint32 bit_offset
 
     return ul_value;
 }
+/*****************************************************************************
+ 函 数 名  : oal_pcie_internal_set
+ 功能描述  : 1151 PCIE内部寄存器MEM写接口，调用接口前，需确保已调用hi1151_pcie_dbi_enable接口使能1151的DBI接口。
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : 邹嵘
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void oal_pcie_internal_set(oal_uint32 ul_inter_addr, oal_uint32 bit_offset, oal_uint32 bit_width, oal_uint32 bit_value)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -687,7 +934,21 @@ oal_void oal_pcie_internal_set(oal_uint32 ul_inter_addr, oal_uint32 bit_offset, 
     oal_writel(ul_value, pst_virt_addr);
 #endif
 }
+/*****************************************************************************
+ 函 数 名  : oal_pci_linkup_check
+ 功能描述  : 检测PCIE的link状态
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : 邹嵘
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  oal_pci_linkup_check(oal_pci_dev_stru *pst_pci_dev)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -709,7 +970,21 @@ oal_uint32  oal_pci_linkup_check(oal_pci_dev_stru *pst_pci_dev)
     return OAL_FALSE;
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pcie_show_link_status
+ 功能描述  : 输出当前PCIE的模式，速率，带宽
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月4日
+    作    者   : 邹嵘
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void oal_pcie_show_link_status(oal_uint32 id)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -745,7 +1020,21 @@ oal_void oal_pcie_show_link_status(oal_uint32 id)
 #endif
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pcie_set_gen
+ 功能描述  : PCIE设置gen模式:1.0/2.0/3.0
+ 输入参数  : pst_pci_dev: pci设备
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年4月24日
+    作    者   : zourong
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void oal_pcie_set_gen(oal_uint32 id,oal_pci_gen_enum_uint8 uc_gen)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -794,7 +1083,21 @@ oal_void oal_pcie_set_gen(oal_uint32 id,oal_pci_gen_enum_uint8 uc_gen)
 #endif
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_ep_reconfig
+ 功能描述  : pci设备重新建联后EP端(1151)恢复配置寄存器和IATU表
+ 输入参数  : pst_pci_dev: pci设备
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年4月24日
+    作    者   : zourong
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  oal_pci_ep_reconfig(oal_pci_dev_stru *pst_pci_dev)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -825,7 +1128,21 @@ oal_uint32  oal_pci_ep_reconfig(oal_pci_dev_stru *pst_pci_dev)
     return OAL_FALSE;
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_rc_reconfig
+ 功能描述  : pci设备重新建联后恢复RC端(5115)配置寄存器和IATU表
+ 输入参数  : pst_pci_dev: pci设备
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年4月24日
+    作    者   : zourong
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  oal_pci_rc_reconfig(oal_uint8 uc_chip_id)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -853,7 +1170,20 @@ oal_uint32  oal_pci_rc_reconfig(oal_uint8 uc_chip_id)
 
 #define PCIE_NONFATAL_ERR_STATUS            (0x0104)
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_check_clear_error_nonfatal
+ 功能描述  : 检测当前pcie是否有检测到pcie error_nonfatal出现,如果检测到则清除该寄存器，并返回1；否则返回0;
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2016年1月28日
+    作    者   : xiechunhui
+    修改内容   : 新生成函数
+*****************************************************************************/
 oal_uint32  oal_pci_check_clear_error_nonfatal(oal_uint8 uc_chip_id)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
@@ -951,7 +1281,20 @@ oal_uint32  oal_pci_check_clear_error_nonfatal(oal_uint8 uc_chip_id)
 #define PCIE_RESET_CTRL_BIT(_chip_id)       (0 == _chip_id ? 0xFF7FFFFF : 0xFEFFFFFF)
 #define PCIE_RESET_CLTR_BIT_NOT(_chip_id)   (0 == _chip_id ? 0x800000 : 0x1000000)
 
+/*****************************************************************************
+ 函 数 名  : oal_pci_hand_reset
+ 功能描述  : 手动触发复位pci
+ 输入参数  :
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2016年1月28日
+    作    者   : xiechunhui
+    修改内容   : 新生成函数
+*****************************************************************************/
 oal_uint32  oal_pci_hand_reset(oal_uint8 uc_chip_id)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION) && (_PRE_TARGET_PRODUCT_TYPE_E5 != _PRE_CONFIG_TARGET_PRODUCT)
@@ -987,7 +1330,20 @@ oal_uint32  oal_pci_hand_reset(oal_uint8 uc_chip_id)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : oal_machine_restart
+ 功能描述  : 触发系统复位
+ 输入参数  :
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2016年3月9日
+    作    者   : xiechunhui
+    修改内容   : 新生成函数
+*****************************************************************************/
 oal_void  oal_machine_restart(oal_void)
 {
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)

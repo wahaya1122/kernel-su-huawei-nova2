@@ -1,4 +1,21 @@
+/******************************************************************************
 
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+ ******************************************************************************
+  文 件 名   : hmac_device.c
+  版 本 号   : 初稿
+  作    者   : l00279018
+  生成日期   : 2015年1月31日
+  最近修改   :
+  功能描述   : hmac device对应操作函数实现的源文件
+  函数列表   :
+  修改历史   :
+  1.日    期   : 2015年1月31日
+    作    者   : l00279018
+    修改内容   : 创建文件
+
+******************************************************************************/
 
 
 #ifdef __cplusplus
@@ -76,7 +93,21 @@ oal_module_license("GPL");
 *****************************************************************************/
 
 
+/*****************************************************************************
+ 函 数 名  : hmac_device_exit
+ 功能描述  : 去初始化hmac device级别参数
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年1月31日
+    作    者   : l00279018
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_device_exit(mac_board_stru *pst_board, mac_chip_stru *pst_chip, hmac_device_stru *pst_hmac_device)
 {
     mac_device_stru   *pst_device;
@@ -180,7 +211,21 @@ oal_uint32  hmac_device_exit(mac_board_stru *pst_board, mac_chip_stru *pst_chip,
 }
 
 #if 0
+/*****************************************************************************
+ 函 数 名  : hmac_device_exit
+ 功能描述  : 卸载device的操作函数(调用之前，已从chip上删除)
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  : 成功或者失败原因
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2012年10月19日
+    作    者   : huxiaotong
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_device_exit(mac_device_stru *pst_device)
 {
     OAM_INFO_LOG0(0, OAM_SF_ANY, "{hmac_device_exit::func enter.}");
@@ -210,7 +255,21 @@ oal_uint32  hmac_device_exit(mac_device_stru *pst_device)
 }
 #endif
 
+/*****************************************************************************
+ 函 数 名  : hmac_chip_exit
+ 功能描述  :
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年2月9日
+    作    者   : l00279018
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32  hmac_chip_exit(mac_board_stru *pst_board, mac_chip_stru *pst_chip)
 {
     hmac_device_stru  *pst_hmac_device;
@@ -248,7 +307,21 @@ OAL_STATIC oal_uint32  hmac_chip_exit(mac_board_stru *pst_board, mac_chip_stru *
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_board_exit
+ 功能描述  : 释放全局变量包含的结构体
+ 输入参数  : board对象指针
+ 输出参数  : 无
+ 返 回 值  : 成功或失败
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年2月9日
+    作    者   : l00279018
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_board_exit(mac_board_stru *pst_board)
 {
     oal_uint8        uc_chip_idx;
@@ -288,7 +361,22 @@ oal_uint32  hmac_board_exit(mac_board_stru *pst_board)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_cfg_vap_init
+ 功能描述  : 配置VAP初始化
+ 输入参数  : uc_dev_id: 设备id
+ 输出参数  :
 
+ 返 回 值  : 错误码
+ 调用函数  :
+ 被调函数  :
+
+ 修改历史      :
+  1.日    期   : 2013年1月15日
+    作    者   : c00178899
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_cfg_vap_init(mac_device_stru *pst_device)
 {
     oal_int8             ac_vap_netdev_name[MAC_NET_DEVICE_NAME_LENGTH];
@@ -359,7 +447,22 @@ OAL_STATIC oal_uint32 hmac_cfg_vap_init(mac_device_stru *pst_device)
 #if (_PRE_MULTI_CORE_MODE_OFFLOAD_DMAC == _PRE_MULTI_CORE_MODE)
 #if (_PRE_OS_VERSION_LINUX == _PRE_OS_VERSION)
 extern oal_bool_enum g_wlan_pm_switch;
+/*****************************************************************************
+ 函 数 名  : hmac_do_suspend_action
+ 功能描述  : 暗屏
+ 输入参数  : hmac device
+ 输出参数  :
 
+ 返 回 值  : 无
+ 调用函数  :
+ 被调函数  :
+
+ 修改历史      :
+  1.日    期   : 2015年9月16日
+    作    者   : l00280485
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void  hmac_do_suspend_action(hmac_device_stru    *pst_hmac_device, oal_uint8  uc_in_suspend)
 {
     mac_device_stru         *pst_mac_device;
@@ -420,7 +523,21 @@ oal_void  hmac_do_suspend_action(hmac_device_stru    *pst_hmac_device, oal_uint8
 }
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
+/*****************************************************************************
+ 函 数 名  : hmac_early_suspend
+ 功能描述  : 屏暗处理
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  : 成功或失败原因
+ 调用函数  : 无
+ 被调函数  : 无
 
+ 修改历史      :
+  1.日    期   : 2015年5月20日
+    作    者   : zourong 00274374
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_early_suspend(struct early_suspend *early_sup)
 {
     hmac_device_stru    *pst_hmac_device;
@@ -429,7 +546,21 @@ oal_void hmac_early_suspend(struct early_suspend *early_sup)
     hmac_do_suspend_action(pst_hmac_device,OAL_TRUE);
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_late_resume
+ 功能描述  : 屏亮处理
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  : 成功或失败原因
+ 调用函数  : 无
+ 被调函数  : 无
 
+ 修改历史      :
+  1.日    期   : 2015年5月20日
+    作    者   : zourong 00274374
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_late_resume(struct early_suspend *early_sup)
 {
     hmac_device_stru    *pst_hmac_device;
@@ -438,7 +569,21 @@ oal_void hmac_late_resume(struct early_suspend *early_sup)
     hmac_do_suspend_action(pst_hmac_device,OAL_FALSE);
 }
 #else
+/*****************************************************************************
+ 函 数 名  : hmac_fb_notify
+ 功能描述  :
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  : 成功或失败原因
+ 调用函数  : 无
+ 被调函数  : 无
 
+ 修改历史      :
+  1.日    期   : 2015年5月20日
+    作    者   : zourong 00274374
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 int hmac_fb_notify(struct notifier_block *nb,
                  unsigned long action, void *data)
 {
@@ -501,7 +646,22 @@ int hmac_fb_notify(struct notifier_block *nb,
 }
 #endif
 #endif
+/*****************************************************************************
+ 函 数 名  : hma_send_evt2wal
+ 功能描述  : hmac抛事件给wal
+ 输入参数  : pst_event_mem: 事件结构体
+ 输出参数  :
 
+ 返 回 值  : 错误码
+ 调用函数  :
+ 被调函数  :
+
+ 修改历史      :
+  1.日    期   : 2013年1月15日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_send_evt2wal(mac_vap_stru *pst_mac_vap, oal_uint8 uc_evtid, oal_uint8 *puc_evt, oal_uint32 ul_evt_len)
 {
     frw_event_mem_stru         *pst_event_mem;
@@ -534,7 +694,21 @@ oal_uint32 hmac_send_evt2wal(mac_vap_stru *pst_mac_vap, oal_uint8 uc_evtid, oal_
     FRW_EVENT_FREE(pst_event_mem);
     return ul_ret;
 }
+/*****************************************************************************
+ 函 数 名  : hmac_pwr_device_init
+ 功能描述  : 上下电流程中host device_stru的初始化函数
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年11月23日
+    作    者   : z00273164
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_config_host_dev_init(mac_vap_stru *pst_mac_vap, oal_uint16 us_len, oal_uint8 *puc_param)
 {
 #ifdef _PRE_WLAN_FEATURE_20_40_80_COEXIST
@@ -581,7 +755,21 @@ oal_uint32 hmac_config_host_dev_init(mac_vap_stru *pst_mac_vap, oal_uint16 us_le
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_config_host_dev_exit
+ 功能描述  : 下电流程中host device_stru的去初始化函数
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年11月26日
+    作    者   : s00304087
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_config_host_dev_exit(mac_vap_stru *pst_mac_vap)
 {
 #ifdef _PRE_WLAN_FEATURE_PKT_MEM_OPT
@@ -598,7 +786,21 @@ oal_uint32 hmac_config_host_dev_exit(mac_vap_stru *pst_mac_vap)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_device_init
+ 功能描述  : 初始化hmac device级别参数
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年5月25日
+    作    者   : liuzhengqi
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_device_init(oal_uint8 *puc_device_id, mac_chip_stru *pst_chip)
 {
     oal_uint8            uc_dev_id;
@@ -720,7 +922,21 @@ oal_uint32  hmac_device_init(oal_uint8 *puc_device_id, mac_chip_stru *pst_chip)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_chip_init
+ 功能描述  : chip对象初始化函数
+ 输入参数  : chip对象指针、chip id
+ 输出参数  : 无
+ 返 回 值  : 成功或失败原因
+ 调用函数  : mac_device_init
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年5月25日
+    作    者   : liuzhengqi
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32  hmac_chip_init(mac_chip_stru *pst_chip, oal_uint8 uc_chip_id)
 {
     oal_uint8  uc_device;
@@ -762,7 +978,21 @@ OAL_STATIC oal_uint32  hmac_chip_init(mac_chip_stru *pst_chip, oal_uint8 uc_chip
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_board_init
+ 功能描述  :
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年5月8日
+    作    者   : liuzhengqi
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_board_init(mac_board_stru *pst_board)
 {
     oal_uint8               uc_chip;
@@ -790,7 +1020,21 @@ oal_uint32  hmac_board_init(mac_board_stru *pst_board)
     return OAL_SUCC;
 }
 #else
+/*****************************************************************************
+ 函 数 名  : hmac_device_init
+ 功能描述  : 初始化hmac device级别参数
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年1月31日
+    作    者   : l00279018
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_device_init(oal_uint8  uc_device_id, mac_chip_stru *pst_dst_chip)
 {
     mac_device_stru     *pst_mac_device;
@@ -876,7 +1120,21 @@ oal_uint32  hmac_device_init(oal_uint8  uc_device_id, mac_chip_stru *pst_dst_chi
 }
 
 
+/*****************************************************************************
+ 函 数 名  : hmac_chip_init
+ 功能描述  : chip对象初始化函数
+ 输入参数  : chip对象指针、chip id
+ 输出参数  : 无
+ 返 回 值  : 成功或失败原因
+ 调用函数  : mac_device_init
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2012年10月19日
+    作    者   : c00178899
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32  hmac_chip_init(
                 mac_chip_stru *pst_dst_chip,
                 mac_chip_stru *pst_src_chip,
@@ -929,7 +1187,21 @@ OAL_STATIC oal_uint32  hmac_chip_init(
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_board_init
+ 功能描述  :
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年5月8日
+    作    者   : 张炜 64406
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  hmac_board_init(oal_uint32 ul_chip_max_num, mac_chip_stru *pst_chip)
 {
     oal_uint8              uc_chip;

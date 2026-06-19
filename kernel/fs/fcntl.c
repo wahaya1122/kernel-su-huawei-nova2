@@ -106,7 +106,7 @@ void __f_setown(struct file *filp, struct pid *pid, enum pid_type type,
 }
 EXPORT_SYMBOL(__f_setown);
 
-int f_setown(struct file *filp, unsigned long arg, int force)
+void f_setown(struct file *filp, unsigned long arg, int force)
 {
 	enum pid_type type;
 	struct pid *pid;
@@ -124,7 +124,6 @@ int f_setown(struct file *filp, unsigned long arg, int force)
 	pid = find_vpid(who);
 	__f_setown(filp, pid, type, force);
 	rcu_read_unlock();
-        return 0;
 }
 EXPORT_SYMBOL(f_setown);
 

@@ -843,22 +843,14 @@ static int tee_calc_task_hash(unsigned char *digest, bool cfc_rehash)
 	void *ptr_base = NULL;
 	struct page *ptr_page = NULL;
 	int rc;
-	struct sdesc {
+	struct {
 		struct shash_desc shash;
-		char ctx[];
-	};
-	struct sdesc *desc;
+		char ctx[crypto_shash_descsize(g_tee_shash_tfm)];
+	} desc;
 
 	if (NULL == digest) {
 		tloge("tee hash: input param is error!\n");
 		return -2;
-	}
-
-	desc = kmalloc(sizeof(struct shash_desc)
-			+ crypto_shash_descsize(g_tee_shash_tfm), GFP_KERNEL);
-	if (!desc) {
-		TCERR("alloc desc failed\n");
-		return -ENOMEM;
 	}
 
 	tlogd("name = %s\n", current->comm);
@@ -867,16 +859,13 @@ static int tee_calc_task_hash(unsigned char *digest, bool cfc_rehash)
 
 		sret = memset_s(digest, MAX_SHA_256_SZ, 0,
 				MAX_SHA_256_SZ);
-		if (EOK != sret) {
-			rc = -2;
-			goto out;
-		}
+		if (EOK != sret)
+			return -2;
 
 		if (cfc_is_enabled && cfc_rehash)
 			CFC_SEND_DATA(tee_calc_task_hash_fix_val, 0);
 
-		rc = 0;
-		goto out;
+		return 0;
 	}
 
 	start_code = current->mm->start_code;
@@ -885,12 +874,12 @@ static int tee_calc_task_hash(unsigned char *digest, bool cfc_rehash)
 	tlogd("code_size = %lu, start_code = %lu, end_code = %lu\n",
 		code_size, start_code, end_code);
 
-	desc->shash.tfm = g_tee_shash_tfm;
-	desc->shash.flags = 0;
+	desc.shash.tfm = g_tee_shash_tfm;
+	desc.shash.flags = 0;
 
-	rc = crypto_shash_init(&desc->shash);
+	rc = crypto_shash_init(&desc.shash);
 	if (rc != 0)
-		goto out;
+		return rc;
 
 	while (start_code < end_code) {
 		rc = get_user_pages_fast(start_code, 1, 0, &ptr_page);
@@ -908,7 +897,7 @@ static int tee_calc_task_hash(unsigned char *digest, bool cfc_rehash)
 		}
 
 		in_size = (code_size > PAGE_SIZE) ? PAGE_SIZE : code_size;
-		rc = crypto_shash_update(&desc->shash, ptr_base, in_size);
+		rc = crypto_shash_update(&desc.shash, ptr_base, in_size);
 		if (rc) {
 			kunmap_atomic(ptr_base);
 			put_page(ptr_page);
@@ -922,15 +911,12 @@ static int tee_calc_task_hash(unsigned char *digest, bool cfc_rehash)
 	}
 
 	if (!rc) {
-		rc = crypto_shash_final(&desc->shash, digest);
+		rc = crypto_shash_final(&desc.shash, digest);
 
 		if (rc || !cfc_is_enabled || !cfc_rehash)
-			goto out;
-		rc = tee_cfc_rehash(&desc->shash, digest);
+			return rc;
+		rc = tee_cfc_rehash(&desc.shash, digest);
 	}
-
-out:
-	kfree(desc);
 	return rc;
 }
 

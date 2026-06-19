@@ -32,16 +32,16 @@
 #elif defined(CONFIG_HAS_EARLYSUSPEND)
 #include <linux/earlysuspend.h>
 #endif
-#include "huawei_ts_kit.h"
-#include "huawei_ts_kit_misc_dev.h"
+#include <huawei_ts_kit.h>
+#include <huawei_ts_kit_misc_dev.h>
 //#ifdef CONFIG_HUAWEI_HW_DEV_DCT
 //#include <huawei_platform/devdetect/hw_dev_dec.h>
 //#endif
 //#include <linux/mfd/hisi_hi6xxx_pmic.h>
 //#include <linux/hisi/hi6xxx-lcd_type.h>
-#include "tpkit_platform_adapter.h"
-#include "huawei_ts_kit_api.h"
-#include "huawei_ts_kit_algo.h"
+#include <tpkit_platform_adapter.h>
+#include <huawei_ts_kit_api.h>
+#include <huawei_ts_kit_algo.h>
 #if defined (CONFIG_TEE_TUI)
 #include "tui.h"
 #endif
@@ -2368,7 +2368,7 @@ static long ts_ioctl_set_coordinates(unsigned long arg)
 	
 	if(!input_dev){
 		TS_LOG_ERR("The command node or input device is not exist!\n");
-		return -1;
+		return;
 	}
 
 //TS_LOG_ERR("[MUTI_AFT] ts_ioctl_set_coordinates enter\n");

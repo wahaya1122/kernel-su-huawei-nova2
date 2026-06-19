@@ -195,11 +195,6 @@ static ssize_t gps_write_proc_nstandby(struct file *filp,
 	char gps_nstandby = '0';
 	pr_info("[GPS] gps_write_proc_nstandby\n");
 
-	if(buffer == NULL )
-	{
-		pr_err("[GPS]NULL Pointer to platform device\n");
-		return -EINVAL;
-	}
 	if ((len < 1) || (NULL == g_gps_bcm)) {
 		pr_err(
 		       "[GPS] gps_write_proc_nstandby g_gps_bcm is NULL or read length = 0.\n");
@@ -232,11 +227,7 @@ static ssize_t gps_read_proc_nstandby(struct file *filp,
 {
 	int gps_nstandby = 0;
 	char tmp[2];
-	if(buffer == NULL )
-	{
-		pr_err("[GPS]NULL Pointer to platform device\n");
-		return -EINVAL;
-	}
+
 	memset(tmp, 0, sizeof(tmp));
 	pr_info("[GPS] gps_read_proc_nstandby\n");
 	if (len < 1 || NULL == g_gps_bcm) {
@@ -297,11 +288,6 @@ static int create_gps_proc_file(void)
 
 static int k3_gps_bcm_probe(struct platform_device *pdev)
 {
-	if(pdev == NULL )
-	{
-		pr_err("[GPS]NULL Pointer to platform device\n");
-		return -ENOMEM;
-	}
 	GPS_BCM_INFO *gps_bcm = NULL;
 	struct device *gps_power_dev = &pdev->dev;
 	struct device_node *np = gps_power_dev->of_node;
@@ -489,11 +475,6 @@ err_free_gps:
 
 static void K3_gps_bcm_shutdown(struct platform_device *pdev)
 {
-	if(pdev == NULL )
-	{
-		pr_err("[GPS]NULL Pointer to platform device\n");
-		return -EINVAL;
-	}
 	GPS_BCM_INFO *gps_bcm = platform_get_drvdata(pdev);
 
 	pr_info("[GPS] K3_gps_bcm_shutdown!\n");

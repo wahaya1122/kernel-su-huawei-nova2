@@ -24,9 +24,9 @@
 #include <linux/sched/rt.h>
 #include <linux/fb.h>
 #include <linux/workqueue.h>
-#include "huawei_ts_kit.h"
-#include "huawei_ts_kit_api.h"
-#include "tpkit_platform_adapter.h"
+#include <huawei_ts_kit.h>
+#include <huawei_ts_kit_api.h>
+#include <tpkit_platform_adapter.h>
 #include "../lcdkit/include/lcdkit_ext.h"
 
 #if defined (CONFIG_HUAWEI_DSM)
@@ -1594,7 +1594,7 @@ void ts_special_hardware_test_switch(struct ts_cmd_node* in_cmd, struct ts_cmd_n
 
 	if (!info) {
 		TS_LOG_ERR("%s, find a null pointer\n", __func__);
-		return;
+		return -EINVAL;
 	}
     TS_LOG_INFO("%s, action :%d, value:%d\n", __func__, info->op_action, info->switch_value);
     if (dev->ops->chip_special_hardware_test_swtich)

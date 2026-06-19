@@ -1,4 +1,21 @@
+/******************************************************************************
 
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+ ******************************************************************************
+  文 件 名   : hmac_custom_security.c
+  版 本 号   : 初稿
+  作    者   : g00260350
+  生成日期   : 2014年3月26日
+  最近修改   :
+  功能描述   : 自定义安全
+  函数列表   :
+  修改历史   :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 创建文件
+
+******************************************************************************/
 
 #ifdef _PRE_WLAN_FEATURE_CUSTOM_SECURITY
 
@@ -42,7 +59,21 @@ extern "C" {
   4 函数实现
 *****************************************************************************/
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_mac_is_zero
+ 功能描述  : 判断mac地址是否为0
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_blacklist_mac_is_zero(oal_uint8 *puc_mac_addr)
 {
     if (puc_mac_addr[0] == 0 &&
@@ -58,7 +89,21 @@ OAL_STATIC oal_uint32 hmac_blacklist_mac_is_zero(oal_uint8 *puc_mac_addr)
     return 0;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_mac_is_bcast
+ 功能描述  : 判断mac地址是否为0
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_blacklist_mac_is_bcast(oal_uint8 *puc_mac_addr)
 {
     if (puc_mac_addr[0] == 0xff &&
@@ -74,7 +119,21 @@ OAL_STATIC oal_uint32 hmac_blacklist_mac_is_bcast(oal_uint8 *puc_mac_addr)
     return 0;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_init
+ 功能描述  : 关闭黑名单功能，并清空所有数据
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_void hmac_blacklist_init(mac_vap_stru *pst_mac_vap, cs_blacklist_mode_enum_uint8 en_mode)
 {
     oal_uint32                   ul_size;
@@ -97,7 +156,21 @@ OAL_STATIC oal_void hmac_blacklist_init(mac_vap_stru *pst_mac_vap, cs_blacklist_
     pst_blacklist_info->uc_mode = en_mode;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_is_aged
+ 功能描述  : 更新表单老化属性
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : OAL_TRUE 已经老化 OAL_FALSE 没有老化
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_bool_enum_uint8 hmac_blacklist_is_aged(mac_vap_stru *pst_mac_vap, mac_blacklist_stru *pst_blacklist)
 {
     oal_time_us_stru              st_cur_time;
@@ -160,7 +233,21 @@ OAL_STATIC oal_bool_enum_uint8 hmac_blacklist_is_aged(mac_vap_stru *pst_mac_vap,
 
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_get
+ 功能描述  : 从表单中查找mac地址相同的表单
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_blacklist_get(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr, mac_blacklist_stru **ppst_blacklist)
 {
     oal_uint8                     ul_blacklist_index;
@@ -202,7 +289,21 @@ OAL_STATIC oal_uint32 hmac_blacklist_get(mac_vap_stru *pst_mac_vap, oal_uint8 *p
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_backlist_get_drop
+ 功能描述  : 获取对应mac的 ul_drop_counter 值，用于UT测试用!
+ 输入参数  : mac_addr
+ 输出参数  : null
+ 返 回 值  : ul_drop_counter 值
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年6月30日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_backlist_get_drop(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     mac_blacklist_stru *pst_blacklist = OAL_PTR_NULL;	/* 2014.9.2 Add UT and found no init value set to it ! add initial value null */
@@ -223,7 +324,21 @@ oal_uint32 hmac_backlist_get_drop(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_
     return OAL_FAIL;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_backlist_set_drop
+ 功能描述  : 减1 ul_drop_counter 值，用以恢复 counter 值 ++
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年6月30日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_backlist_sub_drop(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     oal_uint32  ul_ret;
@@ -239,7 +354,21 @@ OAL_STATIC oal_uint32 hmac_backlist_sub_drop(mac_vap_stru *pst_mac_vap, oal_uint
     return ul_ret;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_backlist_get_list_num
+ 功能描述  : 获取黑白名单中有多少个项
+ 输入参数  :
+ 输出参数  : null
+ 返 回 值  : uc_list_num 值
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年6月30日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint8 hmac_backlist_get_list_num(mac_vap_stru *pst_mac_vap)
 {
     mac_blacklist_info_stru      *pst_blacklist_info;
@@ -264,7 +393,21 @@ oal_uint8 hmac_backlist_get_list_num(mac_vap_stru *pst_mac_vap)
     return pst_blacklist_info->uc_list_num;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_autoblacklist_get
+ 功能描述  : 从表单中查找mac地址相同的表单
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_autoblacklist_get(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr, mac_autoblacklist_stru **ppst_autoblacklist)
 {
     oal_uint8                         ul_blacklist_index;
@@ -386,7 +529,21 @@ OAL_STATIC oal_uint32 hmac_autoblacklist_get(mac_vap_stru *pst_mac_vap, oal_uint
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_update_delete_user
+ 功能描述  : blacklist更新时 删除用户
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2016年2月23日
+    作    者   : zhangheng
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32  hmac_blacklist_update_delete_user(hmac_vap_stru *pst_hmac_vap, hmac_user_stru *pst_hmac_user)
 {
     mac_vap_stru *pst_mac_vap = &(pst_hmac_vap->st_vap_base_info);
@@ -408,7 +565,21 @@ OAL_STATIC oal_uint32  hmac_blacklist_update_delete_user(hmac_vap_stru *pst_hmac
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_whitelist_check_user
+ 功能描述  : 添加白名单删除用户
+ 输入参数  : 无，遍历所有用户
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_whitelist_check_user(mac_vap_stru *pst_mac_vap)
 {
     oal_uint32                       ul_ret;
@@ -450,7 +621,23 @@ OAL_STATIC oal_uint32 hmac_whitelist_check_user(mac_vap_stru *pst_mac_vap)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_vap_check_user_by_macaddr
+ 功能描述  : 在该vap下检查是否用户存在
+             黑名单下，该用户属于assoc用户并且在黑名单中，要删除
+             白名单下，该用户属于assoc用户并且不再白名单中，删除
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2015年1月27日
+    作    者   : d00262548
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint32 hmac_blacklist_vap_check_user_by_macaddr(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     mac_user_stru                *pst_mac_user;
@@ -499,7 +686,21 @@ OAL_STATIC oal_uint32 hmac_blacklist_vap_check_user_by_macaddr(mac_vap_stru *pst
     return ul_ret;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_add
+ 功能描述  : 添加黑/白名单
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_blacklist_add(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr, oal_uint32 ul_aging_time)
 {
     oal_uint8                     ul_blacklist_index;
@@ -590,7 +791,21 @@ oal_uint32 hmac_blacklist_add(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_add_only
+ 功能描述  : 添加黑/白名单
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_blacklist_add_only(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr, oal_uint32 ul_aging_time)
 {
     oal_uint8                     ul_blacklist_index;
@@ -670,7 +885,21 @@ oal_uint32 hmac_blacklist_add_only(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_del
+ 功能描述  : 添加黑/白名单
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月28日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_blacklist_del(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     oal_uint8                     ul_blacklist_index;
@@ -742,7 +971,21 @@ oal_uint32 hmac_blacklist_del(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_update
+ 功能描述  : 黑名单更新
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_blacklist_update(mac_vap_stru *pst_mac_vap, hmac_blacklist_cfg_stru *pst_blacklist_cfg)
 {
     cs_blacklist_mode_enum_uint8    en_mode;
@@ -799,7 +1042,21 @@ oal_uint32 hmac_blacklist_update(mac_vap_stru *pst_mac_vap, hmac_blacklist_cfg_s
 }
 
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_set_mode
+ 功能描述  : 黑名单更新
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_blacklist_set_mode(mac_vap_stru *pst_mac_vap, oal_uint8 uc_mode)
 {
     /*oal_uint32        ul_ret; */
@@ -830,7 +1087,21 @@ oal_uint32 hmac_blacklist_set_mode(mac_vap_stru *pst_mac_vap, oal_uint8 uc_mode)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_show_autoblacklist_info
+ 功能描述  : 显示黑名单信息
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_void hmac_show_autoblacklist_info(mac_autoblacklist_info_stru *pst_autoblacklist_info)
 {
     oal_uint8                    ul_blacklist_index;
@@ -890,7 +1161,21 @@ OAL_STATIC oal_void hmac_show_autoblacklist_info(mac_autoblacklist_info_stru *ps
 
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_show_blacklist_info
+ 功能描述  : 显示黑名单信息
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_show_blacklist_info(mac_vap_stru *pst_mac_vap)
 {
     oal_uint8                    *puc_sa;
@@ -981,7 +1266,21 @@ oal_void hmac_show_blacklist_info(mac_vap_stru *pst_mac_vap)
 
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_autoblacklist_enable
+ 功能描述  : 去/使能自动黑名单
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_autoblacklist_enable(mac_vap_stru *pst_mac_vap, oal_uint8 uc_enabled)
 {
     mac_autoblacklist_info_stru   *pst_autoblacklist_info;
@@ -1033,7 +1332,21 @@ oal_uint32 hmac_autoblacklist_enable(mac_vap_stru *pst_mac_vap, oal_uint8 uc_ena
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_autoblacklist_set_aging
+ 功能描述  : 去/使能自动黑名单
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_autoblacklist_set_aging(mac_vap_stru *pst_mac_vap, oal_uint32 ul_aging_time)
 {
     mac_autoblacklist_info_stru   *pst_autoblacklist_info;
@@ -1075,7 +1388,21 @@ oal_uint32 hmac_autoblacklist_set_aging(mac_vap_stru *pst_mac_vap, oal_uint32 ul
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_autoblacklist_set_threshold
+ 功能描述  : 去/使能自动黑名单
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_autoblacklist_set_threshold(mac_vap_stru *pst_mac_vap, oal_uint32 ul_threshold)
 {
     mac_autoblacklist_info_stru   *pst_autoblacklist_info;
@@ -1117,7 +1444,21 @@ oal_uint32 hmac_autoblacklist_set_threshold(mac_vap_stru *pst_mac_vap, oal_uint3
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_autoblacklist_set_reset_time
+ 功能描述  : 去/使能自动黑名单
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_autoblacklist_set_reset_time(mac_vap_stru *pst_mac_vap, oal_uint32 ul_reset_time)
 {
     mac_autoblacklist_info_stru   *pst_autoblacklist_info;
@@ -1160,7 +1501,21 @@ oal_uint32 hmac_autoblacklist_set_reset_time(mac_vap_stru *pst_mac_vap, oal_uint
 }
 
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_set_mode
+ 功能描述  : 设置隔离模式
+ 输入参数  : uc_mode bit0 = 1 广播 bit1 = 1 组播 bit2 = 1 单播
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_set_mode(mac_vap_stru *pst_mac_vap, oal_uint8 uc_mode)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1199,7 +1554,21 @@ oal_uint32 hmac_isolation_set_mode(mac_vap_stru *pst_mac_vap, oal_uint8 uc_mode)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_set_type
+ 功能描述  : 设置隔离类型
+ 输入参数  :
+ 输出参数  : CS_ISOLATION_TYPE_MULTI_BSS CS_ISOLATION_TYPE_SINGLE_BSS
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_set_type(mac_vap_stru *pst_mac_vap, oal_uint8 uc_type)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1235,7 +1604,21 @@ oal_uint32 hmac_isolation_set_type(mac_vap_stru *pst_mac_vap, oal_uint8 uc_type)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_set_forword
+ 功能描述  : 设置隔离forword方式
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_set_forward(mac_vap_stru *pst_mac_vap, oal_uint8 uc_forward)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1269,7 +1652,21 @@ oal_uint32 hmac_isolation_set_forward(mac_vap_stru *pst_mac_vap, oal_uint8 uc_fo
 }
 
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_clear_counter
+ 功能描述  : 去/使能自动黑名单
+ 输入参数  :
+ 输出参数  : oal_uint32
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月26日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_clear_counter(mac_vap_stru *pst_mac_vap)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1300,7 +1697,21 @@ oal_uint32 hmac_isolation_clear_counter(mac_vap_stru *pst_mac_vap)
     return OAL_SUCC;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_get_bcast_counter
+ 功能描述  : 获取隔离了多少广播包
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  : oal_uint32
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年6月30日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_get_bcast_counter(mac_vap_stru *pst_mac_vap)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1322,7 +1733,21 @@ oal_uint32 hmac_isolation_get_bcast_counter(mac_vap_stru *pst_mac_vap)
     return pst_isolation_info->ul_counter_bcast;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_get_mcast_counter
+ 功能描述  : 获取隔离了多少组播包
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  : oal_uint32
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年6月30日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_get_mcast_counter(mac_vap_stru *pst_mac_vap)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1345,7 +1770,21 @@ oal_uint32 hmac_isolation_get_mcast_counter(mac_vap_stru *pst_mac_vap)
     return pst_isolation_info->ul_counter_mcast;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_get_ucast_counter
+ 功能描述  : 获取隔离了多少单播包
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  : oal_uint32
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年6月30日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 hmac_isolation_get_ucast_counter(mac_vap_stru *pst_mac_vap)
 {
     mac_isolation_info_stru       *pst_isolation_info;
@@ -1368,7 +1807,21 @@ oal_uint32 hmac_isolation_get_ucast_counter(mac_vap_stru *pst_mac_vap)
     return pst_isolation_info->ul_counter_ucast;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_show_isolation_info
+ 功能描述  : 显示隔离信息
+ 输入参数  :
+ 输出参数  : oal_void
+ 返 回 值  : null
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年7月9日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_show_isolation_info(mac_vap_stru *pst_mac_vap)
 {
     mac_isolation_info_stru         *pst_isolation_info;
@@ -1425,7 +1878,21 @@ oal_void hmac_show_isolation_info(mac_vap_stru *pst_mac_vap)
 
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_blacklist_filter
+ 功能描述  : 黑名单过滤
+ 输入参数  : mac地址
+ 输出参数  : oal_void
+ 返 回 值  : OAL_TRUE 需要被过滤; OAL_FALSE 不需要被过滤
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月29日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_bool_enum_uint8 hmac_blacklist_filter(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     mac_blacklist_stru           *pst_blacklist;
@@ -1530,7 +1997,21 @@ oal_bool_enum_uint8 hmac_blacklist_filter(mac_vap_stru *pst_mac_vap, oal_uint8 *
     return OAL_FALSE;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_autoblacklist_filter
+ 功能描述  : 黑名单过滤
+ 输入参数  : mac地址
+ 输出参数  : oal_void
+ 返 回 值  : OAL_TRUE 需要被过滤; OAL_FALSE 不需要被过滤
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月29日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_autoblacklist_filter(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     mac_autoblacklist_stru           *pst_autoblacklist = OAL_PTR_NULL;	/* 添加初始化值，便于做UT打桩后此值是null */
@@ -1609,7 +2090,21 @@ oal_void hmac_autoblacklist_filter(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac
     return;
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_isolation_filter
+ 功能描述  : 用户隔离过滤
+ 输入参数  : mac地址
+ 输出参数  : oal_void
+ 返 回 值  : OAL_TRUE 需要被过滤; OAL_FALSE 不需要被过滤
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年3月29日
+    作    者   : g00260350
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 cs_isolation_forward_enum hmac_isolation_filter(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_mac_addr)
 {
     mac_isolation_info_stru      *pst_isolation_info;
@@ -1752,7 +2247,21 @@ cs_isolation_forward_enum hmac_isolation_filter(mac_vap_stru *pst_mac_vap, oal_u
     return CS_ISOLATION_FORWORD_NONE;
 }
 
+/*****************************************************************************
+ 函 数 名  : add_new_line_to_string_end
+ 功能描述  :
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年7月21日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 /*OAL_INLINE  oal_uint16 add_new_line_to_string_end(oal_uint8 *pst_info_str)
 {
     oal_uint16  str_idex;
@@ -1766,7 +2275,21 @@ cs_isolation_forward_enum hmac_isolation_filter(mac_vap_stru *pst_mac_vap, oal_u
 }*/
 
 #if 0
+/*****************************************************************************
+ 函 数 名  : hmac_config_get_blacklist
+ 功能描述  : 获取全部黑白名单信息
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  : 信息字符串指针
+ 调用函数  :
+ 被调函数  : called by iwpriv
 
+ 修改历史      :
+  1.日    期   : 2014年7月21日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_config_get_blacklist(mac_vap_stru *pst_mac_vap,oal_uint8 *pst_info_str,oal_int16 str_len)
 {
     oal_int16                    strlen,str_idex,str_len_left;
@@ -1904,7 +2427,21 @@ oal_void hmac_config_get_blacklist(mac_vap_stru *pst_mac_vap,oal_uint8 *pst_info
 
 }
 
+/*****************************************************************************
+ 函 数 名  : hmac_config_get_isolation
+ 功能描述  : 获取隔离相关信息
+ 输入参数  :
+ 输出参数  :
+ 返 回 值  : 信息字符串指针
+ 调用函数  :
+ 被调函数  : called by iwpriv
 
+ 修改历史      :
+  1.日    期   : 2014年7月21日
+    作    者   : chenchongbao
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void hmac_config_get_isolation(mac_vap_stru *pst_mac_vap,oal_uint8 *pst_info_str,oal_int16 str_len)
 {
     oal_int16                    strlen,str_idex;

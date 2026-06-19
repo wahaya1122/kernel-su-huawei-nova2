@@ -54,12 +54,7 @@ extern void dhdsdio_isr(void * args);
 #include <bcmsdh.h>
 
 /* driver info, initialized when bcmsdh_register is called */
-static bcmsdh_driver_t drvinfo = {
-	.probe = NULL,
-	.remove = NULL,
-	.suspend = NULL,
-	.resume = NULL
-};
+static bcmsdh_driver_t drvinfo = {NULL, NULL, NULL, NULL};
 
 typedef enum {
 	DHD_INTR_INVALID = 0,

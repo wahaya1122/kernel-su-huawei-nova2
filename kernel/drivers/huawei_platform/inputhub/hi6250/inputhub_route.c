@@ -28,7 +28,7 @@
 #include "sensor_debug.h"
 #include "sensor_sys_info.h"
 #include "iomcu_power.h"
-#include "sensor_detect.h"
+#include <sensor_detect.h>
 #include <huawei_platform/inputhub/motionhub.h>
 #include <huawei_platform/inputhub/cahub.h>
 #include <huawei_platform/inputhub/sensorhub.h>
@@ -2760,19 +2760,19 @@ void inputhub_process_sensor_report(const pkt_header_t* head)
         {
             hwlog_info("%s not report accel_data for dt\n",
                        __func__);
-            return;
+            return 0;
         }
 
         if (unlikely((stop_auto_als) && (head->tag == TAG_ALS)))
         {
             hwlog_info("%s not report als_data for dt\n", __func__);
-            return;
+            return 0;
         }
 
         if (unlikely((stop_auto_ps) && (head->tag == TAG_PS)))
         {
             hwlog_info("%s not report ps_data for dt\n", __func__);
-            return;
+            return 0;
         }
 
         if (head->tag == TAG_PRESSURE)
@@ -2812,7 +2812,10 @@ void inputhub_process_sensor_report(const pkt_header_t* head)
 
         if ((sensor_event->data_flag & FLUSH_END) || flush_flag == 1)
         {
-            return;
+            return report_sensor_event_batch(TAG_FLUSH_META,
+                                             (int*)head,
+                                             sizeof(pkt_header_t),
+                                             0);
         }
 }
 

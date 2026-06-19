@@ -139,9 +139,6 @@ extern void dhd_dpc_kill(dhd_pub_t *dhdp);
 static int hw_calibrate_nvram_vars(struct dhd_bus *bus, char * bufp, uint len);
 #endif
 
-#ifdef HW_CE_5G_HIGH_BAND
-extern int g_ce_5g_high_band;
-#endif
 
 #define     PCI_VENDOR_ID_BROADCOM          0x14e4
 #ifdef BCM_PCIE_UPDATE
@@ -3145,7 +3142,7 @@ done:
 #ifdef BCM_PCIE_UPDATE
 #define PCIE_GEN2(sih) ((BUSTYPE((sih)->bustype) == PCI_BUS) &&	\
 	((sih)->buscoretype == PCIE2_CORE_ID))
-#ifndef BCM_PATCH_SECURITY_2017_02
+
 static bool
 pcie2_mdiosetblock(dhd_bus_t *bus, uint blk)
 {
@@ -3177,7 +3174,6 @@ pcie2_mdiosetblock(dhd_bus_t *bus, uint blk)
 
 	return TRUE;
 }
-#endif
 #endif
 extern void dhd_dpc_tasklet_kill(dhd_pub_t *dhdp);
 enum {
@@ -3369,9 +3365,7 @@ dhd_bus_devreset(dhd_pub_t *dhdp, uint8 flag)
 						__FUNCTION__, bcmerror));
 					goto done;
 				}
-#ifdef HW_WATCHDOG_MS
-				dhd_os_wd_timer(dhdp, dhd_watchdog_ms);
-#endif
+
 				bcmerror = dhd_dbg_start(dhdp, 1);
 				if (bcmerror) {
 					DHD_ERROR(("%s: dhd_dbg_start: %d\n",
@@ -3400,7 +3394,7 @@ done:
 
 	return bcmerror;
 }
-#ifndef BCM_PATCH_SECURITY_2017_02
+
 static int
 pcie2_mdioop(dhd_bus_t *bus, uint physmedia, uint regaddr, bool write, uint *val,
 	bool slave_bypass)
@@ -3445,7 +3439,7 @@ pcie2_mdioop(dhd_bus_t *bus, uint physmedia, uint regaddr, bool write, uint *val
 	}
 	return -1;
 }
-#endif
+
 static int
 dhdpcie_bus_doiovar(dhd_bus_t *bus, const bcm_iovar_t *vi, uint32 actionid, const char *name,
                 void *params, int plen, void *arg, int len, int val_size)
@@ -4419,8 +4413,7 @@ dhdpcie_bus_write_vars(dhd_bus_t *bus)
 		DHD_INFO(("Compare NVRAM dl & ul; varsize=%d\n", varsize));
 		nvram_ularray = (uint8*)MALLOC(bus->dhd->osh, varsize);
 		if (!nvram_ularray)
-			goto skip_debug;
-
+			return BCME_NOMEM;
 
 		/* Upload image to verify downloaded contents. */
 		memset(nvram_ularray, 0xaa, varsize);
@@ -4440,8 +4433,6 @@ dhdpcie_bus_write_vars(dhd_bus_t *bus)
 			__FUNCTION__));
 
 		MFREE(bus->dhd->osh, nvram_ularray, varsize);
-skip_debug:
-		DHD_ERROR(("%s: debug end\n", __FUNCTION__));
 #endif /* DHD_DEBUG */
 
 		MFREE(bus->dhd->osh, vbuffer, varsize);
@@ -4544,9 +4535,6 @@ dhdpcie_downloadvars(dhd_bus_t *bus, void *arg, int len)
 #ifdef BRCM_RSDB
 {
     char *rsdb_mode = NULL;
-#ifdef HW_CE_5G_HIGH_BAND
-	char *ce_5g_high_band = NULL;
-#endif
 #ifdef DHD_DEVWAKE_EARLY
     char *device_wake_opt = NULL;
     int softap_mode;
@@ -4584,14 +4572,6 @@ dhdpcie_downloadvars(dhd_bus_t *bus, void *arg, int len)
 	} else {
 			bus->dhd->devwake_enable = FALSE;
 			DHD_ERROR(("No device_wake_opt in nvram => devwake_enable set FALSE\n"));
-	}
-#endif
-#ifdef HW_CE_5G_HIGH_BAND
-	/* Don't enable this for old products even though upgrade to android P */
-	ce_5g_high_band = getvar(bus->vars, "ce_5g_high_band");
-	if (ce_5g_high_band) {
-		g_ce_5g_high_band = bcm_atoi(ce_5g_high_band);
-		DHD_ERROR(("nvram 5g_high_band: %d\n", g_ce_5g_high_band));
 	}
 #endif
 }
@@ -5573,9 +5553,6 @@ int dhd_bus_init(dhd_pub_t *dhdp, bool enforce_mutex)
 	bus->reg = si_setcore(bus->sih, PCIE2_CORE_ID, 0);
 	ASSERT(bus->reg != NULL);
 
-	DHD_ERROR(("%s: Reset the bus const_flowring.\n", __FUNCTION__));
-	dll_init(&bus->const_flowring);
-
 	/* Set bus state according to enable result */
 	dhdp->busstate = DHD_BUS_DATA;
 
@@ -5689,7 +5666,7 @@ dhdpcie_cc_nvmshadow(dhd_bus_t *bus, struct bcmstrbuf *b)
 	chipcregs = (chipcregs_t *)si_setcore(bus->sih, CC_CORE_ID, 0);
 	ASSERT(chipcregs != NULL);
 	if (NULL == chipcregs)
-		return BCME_NOTFOUND;
+		return;
 
 	chipc_corerev = si_corerev(bus->sih);
 
@@ -6191,7 +6168,6 @@ void dhd_bus_oob_intr_set(dhd_pub_t *dhdp, bool enable)
 #define TEL_HUAWEI_NV_WITXL2G5G1_NUMBER      385
 #define TEL_HUAWEI_NV_WITXOFFSET2G_NUMBER    386
 #define TEL_HUAWEI_NV_WITXOFFSET5G_NUMBER    387
-#define TEL_HUAWEI_NV_WICALCRYSTAL_NUMBER    390
 
 #define TEL_HUAWEI_NV_WINVRAM_NAME           "WINVRAM"
 #define TEL_HUAWEI_NV_WIRXNVRAM_NAME         "WIRXNV"
@@ -6203,7 +6179,6 @@ void dhd_bus_oob_intr_set(dhd_pub_t *dhdp, bool enable)
 #define TEL_HUAWEI_NV_WITXL2G5G1_NAME        "WITXL1"
 #define TEL_HUAWEI_NV_WITXOFFSET2G_NAME      "WITXO2G"
 #define TEL_HUAWEI_NV_WITXOFFSET5G_NAME      "WITXO5G"
-#define TEL_HUAWEI_NV_WICALCRYSTAL_NAME	     "WICALCY"
 
 #define TEL_HUAWEI_NV_WINVRAM_LENGTH         104
 
@@ -6293,7 +6268,6 @@ static uint hw_get_var_name_length(char *bufp, uint len)
 static uint hw_check_var(char *varbufp)
 {
 	int varlen, varnamelen;
-	uint i=0;
 	if (varbufp == NULL) {
 		return 0;
 	}
@@ -6302,7 +6276,7 @@ static uint hw_check_var(char *varbufp)
 	if ((varnamelen <= 0) || (varnamelen>=varlen))
 		return 0;
 
-
+	uint i=0;
 	for(i=varnamelen+1; i<varlen; i++)
 	{
 		if((varbufp[i] == '=')
@@ -6321,9 +6295,9 @@ static uint hw_check_var(char *varbufp)
 */
 #define CALIBRATE_SIZE 128
 #ifdef SUPPORT_WT_WIFI_MIMO_CALIBRATE
-#define MAX_CALIBRATE_SIZE (128 * 11)
+#define MAX_CALIBRATE_SIZE (128 * 10)
 #else
-#define MAX_CALIBRATE_SIZE (128 * 3)
+#define MAX_CALIBRATE_SIZE (128 * 2)
 #endif
 static int hw_calibrate_nvram_vars(struct dhd_bus *bus, char * bufp, uint len)
 {
@@ -6361,9 +6335,6 @@ static int hw_calibrate_nvram_vars(struct dhd_bus *bus, char * bufp, uint len)
 	CalDateLen += hw_load_radio_calibrate_data(CalDateBuf+(strlen(CalDateBuf)), CALIBRATE_SIZE,
 					TEL_HUAWEI_NV_WITXOFFSET5G_NUMBER, TEL_HUAWEI_NV_WINVRAM_LENGTH, TEL_HUAWEI_NV_WITXOFFSET5G_NAME);
 #endif /* SUPPORT_WT_WIFI_MIMO_CALIBRATE */
-        CalDateLen += hw_load_radio_calibrate_data(CalDateBuf+(strlen(CalDateBuf)), CALIBRATE_SIZE,
-					TEL_HUAWEI_NV_WICALCRYSTAL_NUMBER, TEL_HUAWEI_NV_WINVRAM_LENGTH, TEL_HUAWEI_NV_WICALCRYSTAL_NAME);
-
 	if (CalDateLen<=0) {
 		DHD_ERROR(("%s: calibrate data is empty, no need to calibrate nvram\n",  __FUNCTION__));
 		goto fail;

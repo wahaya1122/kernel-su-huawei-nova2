@@ -11,4 +11,4 @@ else
 obj-$(CONFIG_ENABLE_TEST_CODE) += applog_balong_test.o
 endif
 
-subdir-ccflags-y :=
+subdir-ccflags-y := -Werror

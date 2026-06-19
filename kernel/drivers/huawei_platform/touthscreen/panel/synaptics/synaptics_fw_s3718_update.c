@@ -29,7 +29,7 @@
 #include <asm/uaccess.h>
 #include <linux/vmalloc.h>
 #include "synaptics.h"
-#include "../../huawei_touchscreen_chips.h"
+#include <../../huawei_touchscreen_chips.h>
 
 #define FORCE_UPDATE false
 #define DO_LOCKDOWN false
@@ -4790,7 +4790,7 @@ void synaptics_fw_data_s3718_release(void)
 {
 	TS_LOG_INFO("s3718 release fw resource\n");
 	//Do not need to release hw data during the test
-	return;
+	return 0;
 
 	if (fwu && fwu->fn_ptr) {
 		kfree(fwu->fn_ptr);

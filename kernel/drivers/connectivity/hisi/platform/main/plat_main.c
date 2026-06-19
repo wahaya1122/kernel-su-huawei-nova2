@@ -1,4 +1,21 @@
+/******************************************************************************
 
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+******************************************************************************
+文 件 名   : plat_main
+版 本 号   : 初稿
+作    者   : z00273164
+生成日期   : 2014年10月10日
+最近修改   :
+功能描述   : plat_main.c 文件
+函数列表   :
+修改历史   :
+1.日    期   : 2014年10月10日
+ 作    者   : z00273164
+ 修改内容   : 创建文件
+
+******************************************************************************/
 
 #ifdef __cplusplus
 #if __cplusplus
@@ -29,7 +46,7 @@ extern void  low_power_exit(void);
 extern int hw_ps_init(void);
 extern void hw_ps_exit(void);
 
-#ifdef CONFIG_HI110X_GPS_REFCLK
+#if (defined(CONFIG_HISI_GPS_REF_CLK) || defined(CONFIG_CONNECTIVITY_HI110X_HI6250) || defined(CONFIG_CONNECTIVITY_HI110X_HI3650) || defined(CONFIG_CONNECTIVITY_HI110X_HI3660) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN970) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN660))
 extern int hi_gps_plat_init(void);
 extern void hi_gps_plat_exit(void);
 #endif
@@ -67,7 +84,22 @@ int isAsic(void)
 }
 #endif
 
+/*****************************************************************************
+ 函 数 名  : plat_init
+ 功能描述  : 平台初始化函数总入口（目前实现在wifi业务目录下，此处暂时注空，
+             后续挪过来）
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月3日
+    作    者   : z00273164
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_int32  plat_init(oal_void)
 {
     oal_int32   l_return   = OAL_FAIL;
@@ -170,7 +202,7 @@ oal_int32  plat_init(oal_void)
         goto hw_ps_init_fail;
     }
 
-#ifdef CONFIG_HI110X_GPS_REFCLK
+#if (defined(CONFIG_HISI_GPS_REF_CLK) || defined(CONFIG_CONNECTIVITY_HI110X_HI6250) || defined(CONFIG_CONNECTIVITY_HI110X_HI3650) || defined(CONFIG_CONNECTIVITY_HI110X_HI3660) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN970) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN660))
     l_return = hi_gps_plat_init();
     if (OAL_SUCC != l_return)
     {
@@ -189,7 +221,7 @@ oal_int32  plat_init(oal_void)
 
     return OAL_SUCC;
 
-#ifdef CONFIG_HI110X_GPS_REFCLK
+#if (defined(CONFIG_HISI_GPS_REF_CLK) || defined(CONFIG_CONNECTIVITY_HI110X_HI6250) || defined(CONFIG_CONNECTIVITY_HI110X_HI3650) || defined(CONFIG_CONNECTIVITY_HI110X_HI3660) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN970) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN660))
 gps_plat_init_fail:
     hw_ps_exit();
 #endif
@@ -233,10 +265,25 @@ customize_init_failed:
     return l_return;
 }
 
+/*****************************************************************************
+ 函 数 名  : plat_exit
+ 功能描述  : 平台卸载函数总入口（目前实现在wifi业务目录下，此处暂时注空，
+             后续挪过来）
+ 输入参数  : 无
+ 输出参数  : 无
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月3日
+    作    者   : z00273164
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_void plat_exit(oal_void)
 {
-#ifdef CONFIG_HI110X_GPS_REFCLK
+#if (defined(CONFIG_HISI_GPS_REF_CLK) || defined(CONFIG_CONNECTIVITY_HI110X_HI6250) || defined(CONFIG_CONNECTIVITY_HI110X_HI3650) || defined(CONFIG_CONNECTIVITY_HI110X_HI3660) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN970) || defined(CONFIG_CONNECTIVITY_HI110X_KIRIN660))
     hi_gps_plat_exit();
 #endif
 
@@ -350,11 +397,6 @@ oal_int32  plat_sysfs_init(oal_void)
     oal_int32 ret = 0;
     oal_uint32 ul_rslt;
     oal_kobject*     pst_root_boot_object = NULL;
-
-    if(false == is_hisi_chiptype(BOARD_VERSION_HI1102))
-    {
-        return OAL_SUCC;
-    }
 
     /*110X 驱动build in，内存池初始化上移到内核完成，保证大片内存申请成功*/
     ul_rslt = oal_mem_init_pool();

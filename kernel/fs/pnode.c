@@ -459,18 +459,16 @@ int propagate_umount(struct list_head *list)
 	return 0;
 }
 
-void propagate_remount(struct mount *mnt)
-{
-	struct mount *parent = mnt->mnt_parent;
-	struct mount *p = mnt, *m;
+int propagate_remount(struct mount *mnt) {
+	struct mount *m;
 	struct super_block *sb = mnt->mnt.mnt_sb;
+	int ret = 0;
 
-	if (!sb->s_op->copy_mnt_data)
-		return;
-	for (p = propagation_next(parent, parent); p;
-				p = propagation_next(p, parent)) {
-		m = __lookup_mnt(&p->mnt, mnt->mnt_mountpoint);
-		if (m)
+	if (sb->s_op->copy_mnt_data) {
+		for (m = first_slave(mnt); m->mnt_slave.next != &mnt->mnt_slave_list; m = next_slave(m)) {
 			sb->s_op->copy_mnt_data(m->mnt.data, mnt->mnt.data);
+		}
 	}
+
+	return ret;
 }

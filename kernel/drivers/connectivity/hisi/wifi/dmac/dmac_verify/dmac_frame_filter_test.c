@@ -1,4 +1,21 @@
+/******************************************************************************
 
+                  版权所有 (C), 2001-2011, 华为技术有限公司
+
+ ******************************************************************************
+  文 件 名   : dmac_encap_frame_test.c
+  版 本 号   : 初稿
+  作    者   : z00260280
+  生成日期   : 2014年1月27日
+  最近修改   :
+  功能描述   : 芯片验证帧过滤组帧函数等
+  函数列表   :
+  修改历史   :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 创建文件
+
+******************************************************************************/
 
 
 #ifdef __cplusplus
@@ -43,7 +60,23 @@ extern "C" {
   3 函数实现
 *****************************************************************************/
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_ctl_bmucst
+ 功能描述  : 封装组播广播组播控制帧
+ 输入参数  : pst_dmac_vap: DMAC VAP
 
+             ucbmcst:标识广播/组播/单播
+ 输出参数  : uc_buffer: buffer起始地址
+ 返 回 值  : 封装后的帧长度
+ 调用函数  :
+ 被调函数  :
+
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ctl_bmucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buffer, oal_int8 ucbmucst, oal_uint8 *puc_mac)
 {
     oal_uint8        auc_mcst_addr[6] = {0x01, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c}; /* 组播地址 */
@@ -117,7 +150,22 @@ oal_uint32  dmac_test_encap_ctl_bmucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc
 
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_ctl_bcst
+ 功能描述  : 组广播控制帧
+ 输入参数  :vap指针
+            puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ctl_bcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -127,7 +175,22 @@ oal_uint32  dmac_test_encap_ctl_bcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
                                       pst_param->auc_mac_ra);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_cts_ucst
+ 功能描述  : 组组播控制帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ctl_mcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -137,7 +200,22 @@ oal_uint32  dmac_test_encap_ctl_mcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
                                       pst_param->auc_mac_ra);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_cts_ucst
+ 功能描述  : 组非CTS/RTS/ACK的单播控制帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ctl_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -148,7 +226,22 @@ oal_uint32  dmac_test_encap_ctl_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_ctl_cts_ack
+ 功能描述  : 封装CTS/ACK
+ 输入参数  : pst_dmac_vap: DMAC VAP
+             puc_mac: RA
+ 输出参数  : uc_buffer: buffer起始地址
+ 返 回 值  : 封装后的帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ctl_cts_ack(oal_uint8 *puc_buffer, oal_uint8 *puc_mac, oal_int16 us_subtype)
 {
     oal_uint8       *puc_origin = puc_buffer;
@@ -181,7 +274,22 @@ oal_uint32  dmac_test_encap_ctl_cts_ack(oal_uint8 *puc_buffer, oal_uint8 *puc_ma
     return (oal_uint16)(puc_buffer - puc_origin);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_ack_ucst
+ 功能描述  : 组ACK单播控制帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ack_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -189,7 +297,22 @@ oal_uint32  dmac_test_encap_ack_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_cts_ucst
+ 功能描述  : 组CTS单播控制帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_cts_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -197,7 +320,22 @@ oal_uint32  dmac_test_encap_cts_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_ctl_rts
+ 功能描述  : 封装RTS
+ 输入参数  : pst_dmac_vap: DMAC VAP
+             puc_mac: RA
+ 输出参数  : uc_buffer: buffer起始地址
+ 返 回 值  : 封装后的帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ctl_rts(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buffer, oal_uint8 *puc_mac)
 {
     oal_uint8       *puc_origin = puc_buffer;
@@ -234,14 +372,44 @@ oal_uint32  dmac_test_encap_ctl_rts(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_bu
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_rts_ucst
+ 功能描述  : 组RTS单播控制帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_rts_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
     return dmac_test_encap_ctl_rts(pst_mac_vap, puc_buff, pst_param->auc_mac_ra);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_mgmt_encap_asoc_rsp
+ 功能描述  : 组关联响应帧，作为单播帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 dmac_test_mgmt_encap_asoc_rsp(
                 mac_vap_stru                   *pst_mac_ap,
                 oal_uint8                      *puc_sta_addr,
@@ -325,7 +493,22 @@ oal_uint32 dmac_test_mgmt_encap_asoc_rsp(
     return us_asoc_rsp_len;
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_mgmt_bmcst
+ 功能描述  : 组广播/组播 管理帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 OAL_STATIC oal_uint16  dmac_test_encap_mgmt_bmcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buffer, oal_int8 ucbmcst)
 {
     oal_uint8        auc_mcst_addr[6] = {0x01, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc}; /* 组播地址 */
@@ -377,7 +560,22 @@ OAL_STATIC oal_uint16  dmac_test_encap_mgmt_bmcst(mac_vap_stru *pst_mac_vap, oal
     return (oal_uint16)(puc_buffer - puc_origin);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_mgmt_bcst
+ 功能描述  : 组广播管理帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 dmac_test_encap_mgmt_bcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     return dmac_test_encap_mgmt_bmcst(pst_mac_vap,
@@ -385,7 +583,22 @@ oal_uint32 dmac_test_encap_mgmt_bcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
                                             DMAC_TEST_BROADCAST);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_mgmt_mcst
+ 功能描述  : 组组播管理帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 dmac_test_encap_mgmt_mcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     return dmac_test_encap_mgmt_bmcst(pst_mac_vap,
@@ -394,7 +607,22 @@ oal_uint32 dmac_test_encap_mgmt_mcst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_b
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_mgmt_atim
+ 功能描述  : 组ATIM管理帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_mgmt_atim(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     oal_uint8                           *puc_origin = puc_buff;
@@ -435,7 +663,22 @@ oal_uint32  dmac_test_encap_mgmt_atim(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_mgmt_ucst
+ 功能描述  : 组管理单播帧
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_mgmt_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -447,7 +690,22 @@ oal_uint32  dmac_test_encap_mgmt_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_
                                  WLAN_FC0_SUBTYPE_ASSOC_RSP);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_mgmt_ucst
+ 功能描述  : 组管理单播帧,RA地址与TA地址一致
+ 输入参数  : vap指针
+             puc_param 输入参数
+ 输出参数  : puc_buff:缓冲区
+ 返 回 值  : 帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年11月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_mgmt_ucst_ra_equal_ta(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -459,7 +717,22 @@ oal_uint32  dmac_test_encap_mgmt_ucst_ra_equal_ta(mac_vap_stru *pst_mac_vap, oal
                                  WLAN_FC0_SUBTYPE_ASSOC_RSP);
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_ba
+ 功能描述  : 封装BA,用来构造delayed ba
+ 输入参数  : pst_dmac_vap: DMAC VAP
+             puc_mac: RA
+ 输出参数  : uc_buffer: buffer起始地址
+ 返 回 值  : 封装后的帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_ba(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     oal_uint16       us_ba_ctl =0;
@@ -510,7 +783,22 @@ oal_uint32  dmac_test_encap_ba(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, o
     return MAC_80211_CTL_HEADER_LEN + 12;
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_cf_end_ucst
+ 功能描述  : 封装CF-END
+ 输入参数  : pst_dmac_vap: DMAC VAP
+             puc_mac: RA
+ 输出参数  : uc_buffer: buffer起始地址
+ 返 回 值  : 封装后的帧长度
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32  dmac_test_encap_cf_end_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *puc_buff, oal_uint8 *puc_param, oal_uint32 ul_param_len)
 {
     mac_cfg_send_frame_param_stru     *pst_param = (mac_cfg_send_frame_param_stru  *)puc_param;
@@ -547,7 +835,21 @@ oal_uint32  dmac_test_encap_cf_end_ucst(mac_vap_stru *pst_mac_vap, oal_uint8 *pu
     return MAC_80211_CTL_HEADER_LEN;
 }
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_encap_init
+ 功能描述  : 初始化组帧函数指针
+ 输入参数  : pst_encap_fun: 指针数组的首指针
+ 输出参数  : 无
+ 返 回 值  :获取组帧函数
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 oal_uint32 dmac_test_encap_init(dmac_test_encap_frame *pst_encap_fun)
 {
     if(OAL_PTR_NULL == pst_encap_fun)
@@ -571,7 +873,21 @@ oal_uint32 dmac_test_encap_init(dmac_test_encap_frame *pst_encap_fun)
 }
 
 
+/*****************************************************************************
+ 函 数 名  : dmac_test_get_encap_func
+ 功能描述  : 获取组帧函数指针
+ 输入参数  : en_frame_type 帧类型
+ 输出参数  : 无
+ 返 回 值  :获取组帧函数
+ 调用函数  :
+ 被调函数  :
 
+ 修改历史      :
+  1.日    期   : 2014年1月27日
+    作    者   : z00260280
+    修改内容   : 新生成函数
+
+*****************************************************************************/
 dmac_test_encap_frame  dmac_test_get_encap_func(mac_test_frame_type_enum_uint8 en_frame_type)
 {
     dmac_test_encap_frame *pst_encap;
